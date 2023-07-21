@@ -1,0 +1,220 @@
+﻿object dm: Tdm
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 349
+  Width = 644
+  object conexao: TFDConnection
+    Params.Strings = (
+      'Database=futebol_brasileiro'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    Left = 16
+    Top = 16
+  end
+  object drive: TFDPhysMySQLDriverLink
+    VendorLib = 
+      'C:\Users\maine\OneDrive\'#193'rea de Trabalho\Sistem.Fut\lib\libmySQL' +
+      '.dll'
+    Left = 72
+    Top = 16
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 120
+    Top = 16
+  end
+  object tb_jogador: TFDTable
+    IndexFieldNames = 'id_jogador'
+    Connection = conexao
+    TableName = 'futebol_brasileiro.jogadores'
+    Left = 24
+    Top = 200
+    object tb_jogadorid_jogador: TFDAutoIncField
+      FieldName = 'id_jogador'
+      Origin = 'id_jogador'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object tb_jogadornome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 50
+    end
+    object tb_jogadorapelido: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'apelido'
+      Origin = 'apelido'
+    end
+    object tb_jogadoridade: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idade'
+      Origin = 'idade'
+    end
+    object tb_jogadordata_nasc: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'data_nasc'
+      Origin = 'data_nasc'
+      EditMask = '!99/99/0000;1;_'
+    end
+    object tb_jogadornacionalidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nacionalidade'
+      Origin = 'nacionalidade'
+      Size = 40
+    end
+    object tb_jogadornaturalidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'naturalidade'
+      Origin = 'naturalidade'
+      Size = 40
+    end
+    object tb_jogadorsexo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'sexo'
+      Origin = 'sexo'
+      FixedChar = True
+      Size = 1
+    end
+    object tb_jogadorposição: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'posi'#231#227'o'
+      Origin = '`posi'#231#227'o`'
+      Size = 40
+    end
+    object tb_jogadorcamiseta: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'camiseta'
+      Origin = 'camiseta'
+      FixedChar = True
+      Size = 4
+    end
+    object tb_jogadorimagem: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'imagem'
+      Origin = 'imagem'
+    end
+    object tb_jogadorTimes: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Times'
+      Origin = 'Times'
+    end
+    object tb_jogadoraltura: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'altura'
+      Origin = 'altura'
+    end
+    object tb_jogadorpeso: TSingleField
+      AutoGenerateValue = arDefault
+      FieldName = 'peso'
+      Origin = 'peso'
+    end
+    object tb_jogadordata_cad: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'data_cad'
+      Origin = 'data_cad'
+      EditMask = '!99/99/0000;1;_'
+    end
+  end
+  object ds_jogador: TDataSource
+    DataSet = tb_jogador
+    Left = 24
+    Top = 256
+  end
+  object tb_treinador: TFDTable
+    IndexFieldNames = 'id_treinador'
+    Connection = conexao
+    TableName = 'futebol_brasileiro.treinadores'
+    Left = 144
+    Top = 200
+    object tb_treinadorid_treinador: TFDAutoIncField
+      FieldName = 'id_treinador'
+      Origin = 'id_treinador'
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
+    end
+    object tb_treinadornome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 50
+    end
+    object tb_treinadoridade: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idade'
+      Origin = 'idade'
+    end
+    object tb_treinadordata_nasc: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'data_nasc'
+      Origin = 'data_nasc'
+      EditMask = '!99/99/0000;1;_'
+    end
+    object tb_treinadordata_cad: TDateField
+      FieldName = 'data_cad'
+      Origin = 'data_cad'
+      Required = True
+      EditMask = '!99/99/0000;1;_'
+    end
+    object tb_treinadornacionalidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nacionalidade'
+      Origin = 'nacionalidade'
+      Size = 40
+    end
+    object tb_treinadornaturalidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'naturalidade'
+      Origin = 'naturalidade'
+      Size = 40
+    end
+    object tb_treinadorsexo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'sexo'
+      Origin = 'sexo'
+      FixedChar = True
+      Size = 1
+    end
+    object tb_treinadorimagem: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'imagem'
+      Origin = 'imagem'
+    end
+    object tb_treinadortimes: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'times'
+      Origin = 'times'
+      Size = 40
+    end
+  end
+  object ds_treinador: TDataSource
+    DataSet = tb_treinador
+    Left = 144
+    Top = 256
+  end
+  object sql_con_jogador: TFDQuery
+    Connection = conexao
+    SQL.Strings = (
+      'select * from jogadores')
+    Left = 248
+    Top = 208
+  end
+  object ds_con_jogador: TDataSource
+    DataSet = sql_con_jogador
+    Left = 248
+    Top = 256
+  end
+  object sql_con_treinador: TFDQuery
+    Connection = conexao
+    SQL.Strings = (
+      'select * from treinadores')
+    Left = 352
+    Top = 216
+  end
+  object ds_con_treinador: TDataSource
+    DataSet = sql_con_treinador
+    Left = 352
+    Top = 264
+  end
+end

@@ -1,0 +1,107 @@
+﻿object dm: Tdm
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 190
+  Width = 285
+  object conexao: TFDConnection
+    Params.Strings = (
+      'Database=futebol_brasileiro'
+      'User_Name=root'
+      'DriverID=MySQL')
+    Connected = True
+    Left = 16
+    Top = 16
+  end
+  object drive: TFDPhysMySQLDriverLink
+    VendorLib = 
+      'C:\Users\maine\OneDrive\'#193'rea de Trabalho\Sistem.Fut\lib\libmySQL' +
+      '.dll'
+    Left = 72
+    Top = 16
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 16
+    Top = 72
+  end
+  object tb_jogador: TFDTable
+    IndexFieldNames = 'id_jogador'
+    Connection = conexao
+    TableName = 'futebol_brasileiro.jogadores'
+    Left = 128
+    Top = 16
+    object tb_jogadorid_jogador: TFDAutoIncField
+      FieldName = 'id_jogador'
+      Origin = 'id_jogador'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object tb_jogadornome: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nome'
+      Origin = 'nome'
+      Size = 50
+    end
+    object tb_jogadorapelido: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'apelido'
+      Origin = 'apelido'
+    end
+    object tb_jogadoridade: TIntegerField
+      AutoGenerateValue = arDefault
+      FieldName = 'idade'
+      Origin = 'idade'
+    end
+    object tb_jogadordata_nasc: TDateField
+      AutoGenerateValue = arDefault
+      FieldName = 'data_nasc'
+      Origin = 'data_nasc'
+    end
+    object tb_jogadornacionalidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'nacionalidade'
+      Origin = 'nacionalidade'
+      Size = 40
+    end
+    object tb_jogadornaturalidade: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'naturalidade'
+      Origin = 'naturalidade'
+      Size = 40
+    end
+    object tb_jogadorsexo: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'sexo'
+      Origin = 'sexo'
+      FixedChar = True
+      Size = 1
+    end
+    object tb_jogadorposição: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'posi'#231#227'o'
+      Origin = '`posi'#231#227'o`'
+      Size = 40
+    end
+    object tb_jogadorcamiseta: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'camiseta'
+      Origin = 'camiseta'
+      FixedChar = True
+      Size = 4
+    end
+    object tb_jogadorimagem: TBlobField
+      AutoGenerateValue = arDefault
+      FieldName = 'imagem'
+      Origin = 'imagem'
+    end
+    object tb_jogadorTimes: TStringField
+      AutoGenerateValue = arDefault
+      FieldName = 'Times'
+      Origin = 'Times'
+    end
+  end
+  object ds_jogador: TDataSource
+    DataSet = tb_jogador
+    Left = 128
+    Top = 72
+  end
+end

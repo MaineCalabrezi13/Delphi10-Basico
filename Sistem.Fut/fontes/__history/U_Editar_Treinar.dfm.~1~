@@ -1,0 +1,170 @@
+object frm_editTreina: Tfrm_editTreina
+  Left = 0
+  Top = 0
+  Caption = 'EDITAR TREINADOR'
+  ClientHeight = 239
+  ClientWidth = 461
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Image1: TImage
+    Left = 32
+    Top = 197
+    Width = 97
+    Height = 28
+    Picture.Data = {
+      0954506E67496D61676589504E470D0A1A0A0000000D494844520000005A0000
+      0019080300000086BAC9F200000069504C5445085CCB0F02624B428A0C329937
+      2C7D065ACAC7DAF41363CD0E005E0B44B0EEEEF60958C6160C6AFFFFFFEEF4FC
+      3579D5CEDEF479A6E3ADC9EEF5F9FD6B9DE0DDE8F80E5FCC4282D70B39A3518C
+      DB1D69D08BB2E7EBE9F10957C6B9D1F09EBFEB296FCFC2D7F2A4A6CC618ED6F1
+      0000022D4944415478DAB5D56D73A2301000E0252426BC54D4A34E4B67EEFAFF
+      7FD5F5833AA788621181BC5D04B17AAD33DC50F783C60DF3CCB266C1B280C25D
+      025B0C17777019EC3D8B09BFFA76D9F38A0C0CFD7478FF77EB0566BDE8A7F543
+      4367EEFA7AE7C78125BDE8E03D68E8A5559A9FA4CD73E20B86FEF46A88BAA25F
+      376DFE600B49F0B28FED5CD2AF735627C518273656A4A9BABE156EBEF8F9B6EA
+      1587F6F3CB20F88226AEC6A829DAB499B079BDA60C1852DBE703D8F3C055754E
+      2FE9A8A04B6A92CEEF8EB49D99E498ECCCA93C759A84A2041D6EB1020FA512D9
+      0095EDAE828AA2C42F1D903AE71D690E343CCA7871BA2228997CD8D3DD78672B
+      CB1ACE18D108A5510C388B12D3109C75A61B59B87CD934DA17848224054695AF
+      B78E9DDB2287B0E29A60212C7F47D3CE74581E6B2EFDA2391EE6140E2AE6E94C
+      B895BF08BC85A3AC9CFFCAFC9CBB782F15AD3A3764221F6286B4275B7A5A68CD
+      124F58A34C69E255B9A11FB9322872E34135BC35B39F691F6B456314B534BCEC
+      88038A6CB125A9E22ED0CC9B85953974540BC05ABAF3AEF474E5E525D0334DA2
+      E3BC4FF4C6748926C8859C90D57447A49D3D5669580827E9D8904DB40E4C3EFD
+      A8FAB900DB0C3ECD551A1D20078397CF28CB43A438C4812B97DDAAA6F2B42146
+      2D7DF160A9878F9C2793D7CB5BE378454344D276231FC69797DD1CE7DB714DC3
+      F44C43F9FFD82D7A44CDDF35F9D8E9F7B03631891B7A20ECBED4E768E89FF0F6
+      FD3428F3DAEDDFD92F83620BDD053EC65FA1704B4B5C29414B0000000049454E
+      44AE426082}
+  end
+  object txt_datanasc: TDBEdit
+    Left = 280
+    Top = 72
+    Width = 153
+    Height = 21
+    DataField = 'data_nasc'
+    DataSource = dm.ds_treinador
+    TabOrder = 0
+  end
+  object txt_natu: TDBEdit
+    Left = 224
+    Top = 112
+    Width = 209
+    Height = 21
+    DataField = 'naturalidade'
+    DataSource = dm.ds_treinador
+    TabOrder = 1
+  end
+  object txt_nacio: TDBEdit
+    Left = 32
+    Top = 112
+    Width = 177
+    Height = 21
+    DataField = 'nacionalidade'
+    DataSource = dm.ds_treinador
+    TabOrder = 2
+  end
+  object txt_times: TDBComboBox
+    Left = 192
+    Top = 152
+    Width = 241
+    Height = 21
+    DataField = 'times'
+    DataSource = dm.ds_treinador
+    Items.Strings = (
+      'ATHLETICO PARANAENSE'
+      'ATL'#201'TICO-GO'
+      'ATL'#201'TICO-MG'
+      'AVA'#205
+      'BAHIA'
+      'BOTAFOGO'
+      'BRASIL DE PELOTAS'
+      'BRUSQUE'
+      'CEAR'#193
+      'CHAPECOENSE'
+      'CONFIAN'#199'A'
+      'CORINTHIANS'
+      'CORITIBA'
+      'CRB'
+      'CRUZEIRO'
+      'CSA'
+      'FLAMENGO'
+      'FLUMINENSE'
+      'FORTALEZA'
+      'GOI'#193'S'
+      'GR'#202'MIO'
+      'GUARANI'
+      'INTERNACIONAL'
+      'JUVENTUDE'
+      'LONDRINA'
+      'N'#193'UTICO'
+      'OPER'#193'RIO'
+      'PALMEIRAS'
+      'PONTE PRETA'
+      'RED BULL BRAGANTINO'
+      'SAMPAIO CORR'#202'A'
+      'SANTOS'
+      'S'#195'O PAULO'
+      'SPORT'
+      'VASCO DA GAMA'
+      'VILA NOVA')
+    TabOrder = 3
+  end
+  object txt_sexo: TDBComboBox
+    Left = 120
+    Top = 72
+    Width = 145
+    Height = 21
+    DataField = 'sexo'
+    DataSource = dm.ds_treinador
+    Items.Strings = (
+      'MASCULINO'
+      'FEMININO')
+    TabOrder = 4
+  end
+  object txt_datacad: TDBEdit
+    Left = 32
+    Top = 152
+    Width = 145
+    Height = 21
+    DataField = 'data_cad'
+    DataSource = dm.ds_treinador
+    Enabled = False
+    TabOrder = 5
+  end
+  object txt_idade: TDBEdit
+    Left = 32
+    Top = 72
+    Width = 73
+    Height = 21
+    DataField = 'idade'
+    DataSource = dm.ds_treinador
+    TabOrder = 6
+  end
+  object txt_nome: TDBEdit
+    Left = 120
+    Top = 32
+    Width = 313
+    Height = 21
+    DataField = 'nome'
+    DataSource = dm.ds_treinador
+    TabOrder = 7
+  end
+  object txt_id: TDBEdit
+    Left = 32
+    Top = 32
+    Width = 73
+    Height = 21
+    DataField = 'id_treinador'
+    DataSource = dm.ds_treinador
+    Enabled = False
+    TabOrder = 8
+  end
+end

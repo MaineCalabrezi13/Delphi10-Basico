@@ -1,0 +1,40 @@
+unit U_Cad_Jogar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.Mask, Vcl.StdCtrls, Vcl.DBCtrls;
+
+type
+  Tfrm_jogador = class(TForm)
+    Image1: TImage;
+    DBEdit1: TDBEdit;
+    DBEdit2: TDBEdit;
+    DBEdit3: TDBEdit;
+    DBEdit4: TDBEdit;
+    DBEdit5: TDBEdit;
+    DBEdit7: TDBEdit;
+    DBEdit8: TDBEdit;
+    DBEdit9: TDBEdit;
+    DBEdit10: TDBEdit;
+    DBComboBox1: TDBComboBox;
+    DBComboBox2: TDBComboBox;
+    DBComboBox3: TDBComboBox;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_jogador: Tfrm_jogador;
+
+implementation
+
+{$R *.dfm}
+
+uses U_Dm;
+
+end.

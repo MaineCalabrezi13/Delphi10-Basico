@@ -1,0 +1,130 @@
+unit U_Cad_Jogar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.Mask, Vcl.StdCtrls, Vcl.DBCtrls,data.Db, Vcl.ComCtrls;
+
+type
+  Tfrm_jogador = class(TForm)
+    PageControl1: TPageControl;
+    jogador: TTabSheet;
+    consulta_joga: TTabSheet;
+    Image1: TImage;
+    txt_id: TDBEdit;
+    txt_nome: TDBEdit;
+    txt_idade: TDBEdit;
+    txt_altura: TDBEdit;
+    txt_peso: TDBEdit;
+    txt_camisa: TDBEdit;
+    txt_nacio: TDBEdit;
+    txt_natu: TDBEdit;
+    txt_datanasc: TDBEdit;
+    txt_apelido: TDBEdit;
+    txt_datacad: TDBEdit;
+    txt_sexo: TDBComboBox;
+    txt_posicao: TDBComboBox;
+    txt_times: TDBComboBox;
+    btn_inserir: TImage;
+    btn_editar: TImage;
+    btn_excluir: TImage;
+    btn_salvar: TImage;
+    btn_consultar: TImage;
+    btn_cancelar: TImage;
+    btn_fechar: TImage;
+    procedure btn_inserirClick(Sender: TObject);
+    procedure btn_editarClick(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
+    procedure btn_salvarClick(Sender: TObject);
+    procedure btn_consultarClick(Sender: TObject);
+    procedure btn_cancelarClick(Sender: TObject);
+    procedure btn_fecharClick(Sender: TObject);
+  private
+ procedure configbotons;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_jogador: Tfrm_jogador;
+
+implementation
+
+{$R *.dfm}
+
+uses U_Dm;
+
+{ Tfrm_jogador }
+
+procedure Tfrm_jogador.btn_cancelarClick(Sender: TObject);
+begin
+dm.tb_jogador.cancel;
+configbotons;
+end;
+
+procedure Tfrm_jogador.btn_consultarClick(Sender: TObject);
+begin
+pagecontrol1.TabIndex:=1;
+consulta_joga.TabVisible:=true;
+jogador.tabvisible:=false;
+///dm.sql_con_jogador.refresh;
+end;
+
+procedure Tfrm_jogador.btn_editarClick(Sender: TObject);
+begin
+dm.tb_jogador.edit;
+configbotons;
+end;
+
+procedure Tfrm_jogador.btn_excluirClick(Sender: TObject);
+begin
+case application.MessageBox('Deseja excluir jogador?','Excluir Jogador', mb_yesno+ mb_iconquestion) of
+idyes:
+begin
+  dm.tb_jogador.delete;
+  showmessage('Jogador excluido com sucesso!');
+end;
+end;
+end;
+
+procedure Tfrm_jogador.btn_fecharClick(Sender: TObject);
+begin
+if dm.tb_jogador.State in [dsinsert, dsedit] then
+begin
+  showmessage('Salve ou cancele anteste de fechar');
+  exit;
+  end else
+  begin
+    close;
+  end;
+end;
+
+procedure Tfrm_jogador.btn_inserirClick(Sender: TObject);
+begin
+dm.tb_jogador.active:=true;
+dm.tb_jogador.insert;
+configbotons;
+dm.tb_jogadordata_cad.value:=date;
+txt_nome.setfocus;
+end;
+
+procedure Tfrm_jogador.btn_salvarClick(Sender: TObject);
+begin
+dm.tb_jogador.post;
+showmessage('Jogador salvo com sucesso!');
+configbotons;
+end;
+
+procedure Tfrm_jogador.configbotons;
+begin
+btn_inserir.visible:=dm.tb_jogador.State in [dsbrowse];
+btn_salvar.visible:=dm.tb_jogador.State in [dsinsert, dsedit];
+btn_cancelar.visible:=dm.tb_jogador.State in [dsinsert, dsedit];
+btn_editar.visible:=dm.tb_jogador.State in [dsbrowse];
+btn_excluir.visible:=dm.tb_jogador.State in [dsbrowse];
+end;
+
+end.

@@ -1,0 +1,64 @@
+unit U_principal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.ComCtrls, Vcl.ExtCtrls,
+  Vcl.Imaging.pngimage;
+
+type
+  TForm1 = class(TForm)
+    Timer1: TTimer;
+    StatusBar1: TStatusBar;
+    MainMenu1: TMainMenu;
+    Arquivo1: TMenuItem;
+    Abrir1: TMenuItem;
+    Fechar1: TMenuItem;
+    Salvar1: TMenuItem;
+    Cadastro1: TMenuItem;
+    Image1: TImage;
+    Jogador1: TMenuItem;
+    reinador1: TMenuItem;
+    Escalao1: TMenuItem;
+    procedure Timer1Timer(Sender: TObject);
+    procedure Jogador1Click(Sender: TObject);
+    procedure reinador1Click(Sender: TObject);
+    procedure Escalao1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+uses U_Cad_Jogar, U_Cad_Treinar, U_partida;
+
+procedure TForm1.Escalao1Click(Sender: TObject);
+begin
+ frm_partida.showmodal;
+end;
+
+procedure TForm1.Jogador1Click(Sender: TObject);
+begin
+ frm_jogador.showmodal;
+end;
+
+procedure TForm1.reinador1Click(Sender: TObject);
+begin
+frm_treinador.showmodal;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+statusbar1.Panels[2].text:='Data: '+ formatdatetime('dddd, dd "de" mmmm "de" yyyy',now);
+statusbar1.Panels[3].text:= formatdatetime('hh:mm:ss',now);
+end;
+
+end.

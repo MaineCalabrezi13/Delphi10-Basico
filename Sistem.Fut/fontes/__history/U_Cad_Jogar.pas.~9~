@@ -1,0 +1,370 @@
+unit U_Cad_Jogar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.Mask, Vcl.StdCtrls, Vcl.DBCtrls,data.Db, Vcl.ComCtrls, Vcl.Grids,
+  Vcl.DBGrids;
+
+type
+  Tfrm_jogador = class(TForm)
+    PageControl1: TPageControl;
+    jogador: TTabSheet;
+    consulta_joga: TTabSheet;
+    Image1: TImage;
+    txt_id: TDBEdit;
+    txt_nome: TDBEdit;
+    txt_idade: TDBEdit;
+    txt_altura: TDBEdit;
+    txt_peso: TDBEdit;
+    txt_camisa: TDBEdit;
+    txt_nacio: TDBEdit;
+    txt_natu: TDBEdit;
+    txt_datanasc: TDBEdit;
+    txt_apelido: TDBEdit;
+    txt_datacad: TDBEdit;
+    txt_sexo: TDBComboBox;
+    txt_posicao: TDBComboBox;
+    txt_times: TDBComboBox;
+    btn_inserir: TImage;
+    btn_salvar: TImage;
+    btn_consultar: TImage;
+    btn_cancelar: TImage;
+    Image2: TImage;
+    DBGrid1: TDBGrid;
+    Image3: TImage;
+    Image4: TImage;
+    Image5: TImage;
+    btn_imprimir: TImage;
+    txt_buscar: TEdit;
+    lb_msg: TLabel;
+    lb_buscar: TLabel;
+    rg_opcoes: TRadioGroup;
+    Image8: TImage;
+    btn_clear: TButton;
+    Image6: TImage;
+    Image7: TImage;
+    procedure btn_inserirClick(Sender: TObject);
+    procedure btn_editarClick(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
+    procedure btn_salvarClick(Sender: TObject);
+    procedure btn_consultarClick(Sender: TObject);
+    procedure btn_cancelarClick(Sender: TObject);
+    procedure btn_fecharClick(Sender: TObject);
+    procedure Image4Click(Sender: TObject);
+    procedure Image5Click(Sender: TObject);
+    procedure rg_opcoesClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Image8Click(Sender: TObject);
+    procedure txt_buscarKeyPress(Sender: TObject; var Key: Char);
+    procedure btn_clearClick(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
+    procedure Image7Click(Sender: TObject);
+  private
+ procedure configbotons;
+ procedure QuantidadeRegistros;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_jogador: Tfrm_jogador;
+
+implementation
+
+{$R *.dfm}
+
+uses U_Dm, Unit2;
+
+{ Tfrm_jogador }
+
+procedure Tfrm_jogador.btn_cancelarClick(Sender: TObject);
+begin
+dm.tb_jogador.cancel;
+configbotons;
+end;
+
+procedure Tfrm_jogador.btn_clearClick(Sender: TObject);
+begin
+txt_buscar.clear;
+end;
+
+procedure Tfrm_jogador.btn_consultarClick(Sender: TObject);
+begin
+pagecontrol1.TabIndex:=1;
+consulta_joga.TabVisible:=true;
+jogador.tabvisible:=false;
+//dm.sql_con_jogador.refresh;
+end;
+
+procedure Tfrm_jogador.btn_editarClick(Sender: TObject);
+begin
+dm.tb_jogador.edit;
+configbotons;
+end;
+
+procedure Tfrm_jogador.btn_excluirClick(Sender: TObject);
+begin
+case application.MessageBox('Deseja excluir jogador?','Excluir Jogador', mb_yesno+ mb_iconquestion) of
+idyes:
+begin
+  dm.tb_jogador.delete;
+  showmessage('Jogador excluido com sucesso!');
+end;
+end;
+end;
+
+procedure Tfrm_jogador.btn_fecharClick(Sender: TObject);
+begin
+if dm.tb_jogador.State in [dsinsert, dsedit] then
+begin
+  showmessage('Salve ou cancele anteste de fechar');
+  exit;
+  end else
+  begin
+    close;
+  end;
+end;
+
+procedure Tfrm_jogador.btn_inserirClick(Sender: TObject);
+begin
+dm.tb_jogador.active:=true;
+dm.tb_jogador.insert;
+configbotons;
+dm.tb_jogadordata_cad.value:=date;
+txt_nome.setfocus;
+end;
+
+procedure Tfrm_jogador.btn_salvarClick(Sender: TObject);
+begin
+if(txt_id.text ='') or (txt_nome.text='') or(txt_idade.text='') or(txt_sexo.text='') or (txt_datanasc.text='') or(txt_nacio.text='')or(txt_natu.text='')or(txt_datacad.text='')or(txt_times.text='')or(txt_posicao.text='')or (txt_altura.text='')or (txt_peso.text='')or (txt_camisa.text='')or(txt_apelido.text='')then
+begin
+  showmessage('Preencha todos os campo!');
+  exit;
+  end else
+dm.tb_jogador.post;
+showmessage('Jogador salvo com sucesso!');
+configbotons;
+end;
+
+procedure Tfrm_jogador.Button1Click(Sender: TObject);
+begin
+if dm.tb_jogador.RecordCount > 0 then  begin
+     dm.tb_jogador.Delete;
+     dm.tb_jogador.EnableControls;
+      dm.sql_con_jogador.Refresh;
+end;
+end;
+
+procedure Tfrm_jogador.Button2Click(Sender: TObject);
+begin
+{if dm.tb_jogador.RecordCount > 0 then  begin
+PageControl1.ActivePageIndex := 0;
+
+with dm.tb_jogador do
+begin
+
+end;
+end;
+         }
+
+end;
+
+procedure Tfrm_jogador.configbotons;
+begin
+btn_inserir.visible:=dm.tb_jogador.State in [dsbrowse];
+btn_salvar.visible:=dm.tb_jogador.State in [dsinsert, dsedit];
+btn_cancelar.visible:=dm.tb_jogador.State in [dsinsert, dsedit];
+end;
+
+procedure Tfrm_jogador.FormActivate(Sender: TObject);
+begin
+with dm.tb_jogador do
+begin
+  sql.clear;
+  sql.add('select * from jogadores');
+  open;
+end;
+end;
+
+procedure Tfrm_jogador.Image4Click(Sender: TObject);
+begin
+pagecontrol1.TabIndex:=0;
+consulta_joga.TabVisible:=false;
+jogador.tabvisible:=true;
+end;
+
+procedure Tfrm_jogador.Image5Click(Sender: TObject);
+begin
+if txt_buscar.text=''then
+begin
+  showmessage('Digite algo para pesquisar');
+  txt_buscar.setfocus;
+  exit;
+end;
+with dm.sql_con_jogador do
+begin
+  close;
+  sql.clear;
+  sql.add('select * from jogadores');
+  case rg_opcoes.ItemIndex of
+  0:begin
+    sql.add('where id_jogador = :codigo');
+    parambyname('codigo').value:=txt_buscar.text;
+  end;
+  1:begin
+    sql.add('where nome like :codigo');
+     parambyname('codigo').value:='%'+ txt_buscar.text+'%';
+  end;
+  2:begin
+     sql.add('where apelido like :codigo');
+     parambyname('codigo').value:='%'+ txt_buscar.text+'%';
+  end;
+  3:begin
+     sql.add('where camiseta = :codigo');
+     parambyname('codigo').value:= txt_buscar.text;
+  end;
+  4:begin
+    sql.add('where posição like :codigo');
+     parambyname('codigo').value:='%'+ txt_buscar.text+'%';
+  end;
+  5:begin
+    sql.add('where Times like :codigo');
+     parambyname('codigo').value:='%'+ txt_buscar.text+'%';
+  end;
+  end;
+  open;
+  QuantidadeRegistros;
+end;
+end;
+
+procedure Tfrm_jogador.Image6Click(Sender: TObject);
+begin
+if dm.tb_jogador.RecordCount > 0 then  begin
+     dm.tb_jogador.Delete;
+     dm.tb_jogador.EnableControls;
+      dm.sql_con_jogador.Refresh;
+      end;
+end;
+
+procedure Tfrm_jogador.Image7Click(Sender: TObject);
+begin
+     form2.ShowModal;
+end;
+
+procedure Tfrm_jogador.Image8Click(Sender: TObject);
+begin
+with dm.sql_con_jogador do
+begin
+  close;
+  sql.clear;
+  sql.add('select * from jogadores');
+  open;
+end;
+
+end;
+
+procedure Tfrm_jogador.QuantidadeRegistros;
+begin
+if dm.sql_con_jogador.recordcount = 0 then
+begin
+  lb_msg.visible:=true;
+  lb_msg.caption:='';
+  lb_msg.caption:='Nenhum dado encontrado';
+  btn_imprimir.enabled:=false;
+end;
+if dm.sql_con_jogador.recordcount = 1 then
+begin
+  lb_msg.visible:=true;
+  lb_msg.caption:='';
+  lb_msg.caption:='Foi encontrado 1 registro';
+  btn_imprimir.enabled:=true;
+end;
+if dm.sql_con_jogador.recordcount > 1 then
+begin
+  lb_msg.visible:=true;
+  lb_msg.caption:='';
+  lb_msg.caption:='Foram encontrados '+inttostr(dm.sql_con_jogador.recordcount)+' cadastros';
+  btn_imprimir.enabled:=true;
+end;
+end;
+
+procedure Tfrm_jogador.rg_opcoesClick(Sender: TObject);
+begin
+case rg_opcoes.ItemIndex of
+0:begin
+txt_buscar.visible:=true;
+lb_buscar.caption:='Digite o Número de registro do jogador';
+lb_buscar.visible:=true;
+txt_buscar.clear;
+image5.visible:=true;
+txt_buscar.Setfocus;
+end;
+ 1:begin
+txt_buscar.visible:=true;
+lb_buscar.caption:='Digite o nome do jogador';
+lb_buscar.visible:=true;
+txt_buscar.clear;
+image5.visible:=true;
+txt_buscar.Setfocus;
+end;
+2:begin
+txt_buscar.visible:=true;
+lb_buscar.caption:='Digite o apelido do jogador';
+lb_buscar.visible:=true;
+txt_buscar.clear;
+image5.visible:=true;
+txt_buscar.Setfocus;
+end;
+3:begin
+txt_buscar.visible:=true;
+lb_buscar.caption:='Digite o Número da camisa do jogador';
+lb_buscar.visible:=true;
+txt_buscar.clear;
+image5.visible:=true;
+txt_buscar.Setfocus;
+end;
+4:begin
+txt_buscar.visible:=true;
+lb_buscar.caption:='Digite a posição do jogador';
+lb_buscar.visible:=true;
+txt_buscar.clear;
+image5.visible:=true;
+txt_buscar.Setfocus;
+end;
+5:begin
+ txt_buscar.visible:=true;
+lb_buscar.caption:='Digite o time do jogador';
+lb_buscar.visible:=true;
+txt_buscar.clear;
+image5.visible:=true;
+txt_buscar.Setfocus;
+end;
+end;
+end;
+
+procedure Tfrm_jogador.txt_buscarKeyPress(Sender: TObject; var Key: Char);
+begin
+case rg_opcoes.ItemIndex of
+0:begin
+  if(key in['0'..'9'] =false)and(word(key)<> VK_BACK)then
+  begin
+    showmessage('Digite apenas números');
+    key:=#0;
+  end;
+end;
+ 3:begin
+  if(key in['0'..'9'] =false)and(word(key)<> VK_BACK)then
+  begin
+    showmessage('Digite apenas números');
+    key:=#0;
+end;
+end;
+end;
+end;
+End.

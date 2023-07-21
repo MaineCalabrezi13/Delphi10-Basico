@@ -1,0 +1,62 @@
+unit U_Dm;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
+  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
+  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.MySQL,
+  FireDAC.Phys.MySQLDef, FireDAC.VCLUI.Wait, Data.DB, FireDAC.Comp.Client,
+  FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.UI;
+
+type
+  Tdm = class(TDataModule)
+    conexao: TFDConnection;
+    drive: TFDPhysMySQLDriverLink;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    tb_jogador: TFDTable;
+    tb_jogadorid_jogador: TFDAutoIncField;
+    tb_jogadornome: TStringField;
+    tb_jogadorapelido: TStringField;
+    tb_jogadoridade: TIntegerField;
+    tb_jogadordata_nasc: TDateField;
+    tb_jogadornacionalidade: TStringField;
+    tb_jogadornaturalidade: TStringField;
+    tb_jogadorsexo: TStringField;
+    tb_jogadorposição: TStringField;
+    tb_jogadorcamiseta: TStringField;
+    tb_jogadorimagem: TBlobField;
+    tb_jogadorTimes: TStringField;
+    ds_jogador: TDataSource;
+    tb_jogadoraltura: TSingleField;
+    tb_jogadorpeso: TSingleField;
+    tb_jogadordata_cad: TDateField;
+    procedure DataModuleCreate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  dm: Tdm;
+
+implementation
+
+{%CLASSGROUP 'Vcl.Controls.TControl'}
+
+{$R *.dfm}
+
+procedure Tdm.DataModuleCreate(Sender: TObject);
+begin
+conexao.Params.Database:='Futebol_brasileiro';
+conexao.Params.UserName:='root';
+conexao.Params.Password:='';
+drive.VendorLib:=getcurrentdir+'\lib\limysql.dll';
+tb_jogador.TableName:='jogadores';
+tb_jogador.active:=true;
+
+end;
+
+end.

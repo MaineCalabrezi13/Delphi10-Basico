@@ -1,0 +1,114 @@
+unit U_Cad_Treinar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls, Vcl.StdCtrls, Vcl.DBCtrls,
+  Vcl.Mask, Vcl.Imaging.pngimage, Vcl.ExtCtrls,Data.Db;
+
+type
+  Tfrm_treinador = class(TForm)
+    PageControl1: TPageControl;
+    Image1: TImage;
+    tb_cad: TTabSheet;
+    txt_datanasc: TDBEdit;
+    txt_natu: TDBEdit;
+    txt_nacio: TDBEdit;
+    btn_consultar: TImage;
+    txt_times: TDBComboBox;
+    txt_sexo: TDBComboBox;
+    txt_datacad: TDBEdit;
+    btn_salvar: TImage;
+    btn_excluir: TImage;
+    btn_editar: TImage;
+    btn_inserir: TImage;
+    txt_idade: TDBEdit;
+    txt_nome: TDBEdit;
+    txt_id: TDBEdit;
+    btn_fechar: TImage;
+    btn_cancelar: TImage;
+    tb_consul: TTabSheet;
+    procedure btn_inserirClick(Sender: TObject);
+    procedure btn_editarClick(Sender: TObject);
+    procedure btn_excluirClick(Sender: TObject);
+    procedure btn_salvarClick(Sender: TObject);
+    procedure btn_cancelarClick(Sender: TObject);
+    procedure btn_fecharClick(Sender: TObject);
+  private
+   procedure configbotons;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frm_treinador: Tfrm_treinador;
+
+implementation
+
+{$R *.dfm}
+
+uses U_Dm;
+
+procedure Tfrm_treinador.btn_cancelarClick(Sender: TObject);
+begin
+dm.tb_treinador.cancel;
+configbotons;
+end;
+
+procedure Tfrm_treinador.btn_editarClick(Sender: TObject);
+begin
+dm.tb_treinador.edit;
+configbotons;
+end;
+
+procedure Tfrm_treinador.btn_excluirClick(Sender: TObject);
+begin
+case application.MessageBox('Deseja excluir treinador?','Excluir Treinador', mb_yesno+ mb_iconquestion) of
+idyes:
+begin
+  dm.tb_treinador.delete;
+  showmessage('Treinador excluido com sucesso!');
+end;
+end;
+end;
+
+procedure Tfrm_treinador.btn_fecharClick(Sender: TObject);
+begin
+if dm.tb_treinador.State in [dsinsert, dsedit] then
+begin
+  showmessage('Salve ou cancele anteste de fechar');
+  exit;
+  end else
+  begin
+    close;
+  end;
+end;
+
+procedure Tfrm_treinador.btn_inserirClick(Sender: TObject);
+begin
+dm.tb_treinador.active:=true;
+dm.tb_treinador.insert;
+configbotons;
+dm.tb_treinadordata_cad.value:=date;
+txt_nome.setfocus;
+end;
+
+procedure Tfrm_treinador.btn_salvarClick(Sender: TObject);
+begin
+dm.tb_treinador.post;
+showmessage('Treinador salvo com sucesso!');
+configbotons;
+end;
+
+procedure Tfrm_treinador.configbotons;
+begin
+btn_inserir.visible:=dm.tb_treinador.State in [dsbrowse];
+btn_salvar.visible:=dm.tb_treinador.State in [dsinsert, dsedit];
+btn_cancelar.visible:=dm.tb_treinador.State in [dsinsert, dsedit];
+btn_editar.visible:=dm.tb_treinador.State in [dsbrowse];
+btn_excluir.visible:=dm.tb_treinador.State in [dsbrowse];
+end;
+
+end.
