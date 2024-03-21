@@ -1,1 +1,1 @@
-# Delphi10-Basico
+# Este é um sistema de cadastro relacionado ao futebol, desenvolvido utilizando Delphi 10.
