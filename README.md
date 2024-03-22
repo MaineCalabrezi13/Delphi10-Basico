@@ -3,5 +3,5 @@
 Delphi 10 durante a disciplina de Desenvolvimento de Sistemas no curso técnico em informática.</h4>
 
 <h3>Funcionalidades💡</h3>
-Cadastro de times, jogadores e partidas
-Geração de relatórios da partida
+<p>Cadastro de times, jogadores e partidas</p>
+<p>Geração de relatórios da partida</p>
